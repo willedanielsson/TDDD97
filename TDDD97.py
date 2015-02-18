@@ -1,29 +1,24 @@
-from flask import Flask, url_for
+from flask import Flask
 from flask import request
 from flask import jsonify
 from flask import json
 app = Flask(__name__)
-from flask import render_template
+import gevent
+from gevent.wsgi import WSGIServer
 import database_helper
 # -*- coding: utf-8 -*-
 
 @app.route('/')
 def hello_world():
     database_helper.init()
-    #return app.send_static_file('test.html')
+    return app.send_static_file('client.html')
 
-@app.route('/test', methods=['GET'])
-def test():
-    print "Inne i test"
-    return "Hej"
 
 @app.route('/signin', methods=['POST'])
 def sign_in():
-    print "Signin in"
     email = request.form['email']
     password = request.form['password']
     response = database_helper.signin(email, password)
-    print response
     json.dumps({'success' : False, 'message' : 'wrong password'})
     if response=="Error":
         return jsonify(success=False,
@@ -36,8 +31,6 @@ def sign_in():
 
 @app.route('/signup', methods=['POST'])
 def sign_up():
-    print "Signin up"
-
     email = request.form['email']
     password = request.form['password']
     firstname = request.form['firstname']
@@ -61,7 +54,6 @@ def sign_up():
 
 @app.route('/signout', methods=['GET'])
 def sign_out():
-    print "Signing out"
     token = request.args.get('token')
     response = database_helper.signout(token)
     if(response=="Success"):
@@ -73,7 +65,6 @@ def sign_out():
 
 @app.route('/changepassword', methods=['POST'])
 def change_password():
-    print "Changing pass"
     token = request.form['token']
     oldpass = request.form['oldpass']
     newpass = request.form['newpass']
@@ -91,7 +82,6 @@ def change_password():
 
 @app.route('/getuserdatabytoken', methods=['POST'])
 def get_user_data_by_token():
-    print "Getting data for user"
     token = request.form['token']
     response = database_helper.getuserdatabytoken(token)
     if response=="Error":
@@ -106,7 +96,6 @@ def get_user_data_by_token():
 
 @app.route('/getuserdatabyemail', methods=['POST'])
 def get_user_data_by_email():
-    print "Getting data for friend"
     token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
@@ -126,7 +115,6 @@ def get_user_data_by_email():
 
 @app.route('/postmessage', methods=['POST'])
 def post_message():
-    print "Posting message"
     token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
@@ -146,9 +134,9 @@ def post_message():
             else:
                 return jsonify(success=False, message="Failed to post.")
 
+
 @app.route('/getusermessagebytoken', methods=['POST'])
 def get_user_message_by_token():
-    print "Getting message by token"
     token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
@@ -156,7 +144,6 @@ def get_user_message_by_token():
                        message="Not logged in.")
     else:
         response=database_helper.getmessagebytoken(token)
-        print(response)
         if(response=="Error"):
             return jsonify(success=False,
                        message="No such user")
@@ -167,7 +154,6 @@ def get_user_message_by_token():
 
 @app.route('/getusermessagebyemail', methods=['POST'])
 def get_user_message_by_email():
-    print "Getting message by email"
     token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
@@ -186,4 +172,6 @@ def get_user_message_by_email():
 
 
 if __name__ == '__main__':
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
     app.run(debug=True)

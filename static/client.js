@@ -101,29 +101,43 @@ var login = function(){
 
 /*
 Function that sends the message to the database
-Input = None (gets the token from sessionStorage and email from session)
+Input = Target: decides if it is on a friends wall or not (gets the token from sessionStorage and email from session)
 Returns:
     Success: A success-message
     Error : A error-message
  */
-postText = function(){
-	var text = document.getElementById('post_textarea').value;
+postText = function(target){
+    var text;
+    if(target=="friend"){
+
+        text = document.getElementById('friend_post_textarea').value;
+    }else{
+        text = document.getElementById('post_textarea').value;
+    }
+
     if(text!=""){
-        var email = JSON.parse(sessionStorage.getItem("loggedInUser")).email;
+        var email;
+        if(target=="friend"){
+            email = document.getElementById('friend_email').innerHTML;
+        }else{
+            email = JSON.parse(sessionStorage.getItem("loggedInUser")).email;
+        }
 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST","../postmessage" , true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        if(email!=""){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST","../postmessage" , true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xmlhttp.onreadystatechange = function () {
-            if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readyState==4 && xmlhttp.status==200) {
 
-                var response = JSON.parse(xmlhttp.responseText);
-                console.log(response);
+                    var response = JSON.parse(xmlhttp.responseText);
+                    console.log(response);
 
-            }
-        };
-        xmlhttp.send("token="+sessionStorage.token+"&message="+text+"&email="+email);
+                }
+            };
+            xmlhttp.send("token="+sessionStorage.token+"&message="+text+"&email="+email);
+        }
     }
 }
 
@@ -341,7 +355,6 @@ Later calls getFriendMessages if email was set
 reloadFriendMessage = function(){
 	email = document.getElementById('friend_email').innerHTML;
     if(email!=""){
-        console.log("Jaa");
         getFriendMessages(email);
     }
 
