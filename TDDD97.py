@@ -1,23 +1,30 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask import request
 from flask import jsonify
-from flask import render_template
+from flask import json
 app = Flask(__name__)
-
+from flask import render_template
 import database_helper
-
+# -*- coding: utf-8 -*-
 
 @app.route('/')
 def hello_world():
     database_helper.init()
-    return render_template('client.html')
+    #return app.send_static_file('test.html')
 
-@app.route('/signin', methods=['GET'])
+@app.route('/test', methods=['GET'])
+def test():
+    print "Inne i test"
+    return "Hej"
+
+@app.route('/signin', methods=['POST'])
 def sign_in():
     print "Signin in"
-    email = request.args.get('email')
-    password = request.args.get('password')
+    email = request.form['email']
+    password = request.form['password']
     response = database_helper.signin(email, password)
+    print response
+    json.dumps({'success' : False, 'message' : 'wrong password'})
     if response=="Error":
         return jsonify(success=False,
                        message="Wrong username or password.",)
@@ -27,16 +34,18 @@ def sign_in():
                        data=response)
 
 
-@app.route('/signup', methods=['GET'])
+@app.route('/signup', methods=['POST'])
 def sign_up():
     print "Signin up"
-    email = request.args.get('email')
-    password = request.args.get('password')
-    firstname = request.args.get('firstname')
-    familyname = request.args.get('familyname')
-    gender = request.args.get('gender')
-    city = request.args.get('city')
-    country = request.args.get('country')
+
+    email = request.form['email']
+    password = request.form['password']
+    firstname = request.form['firstname']
+    familyname = request.form['familyname']
+    gender = request.form['gender']
+    city = request.form['city']
+    country = request.form['country']
+
     if (email!="NULL" and password!="NULL" and firstname!="NULL" and familyname!="NULL" and gender!="NULL" and city!="NULL" and country!="NULL"):
         response = database_helper.signup(email, password, firstname, familyname, gender, city, country)
         if(response=="Success"):
@@ -62,12 +71,12 @@ def sign_out():
         return jsonify(success=False,
                        message="You are not signed in.")
 
-@app.route('/changepassword', methods=['GET'])
+@app.route('/changepassword', methods=['POST'])
 def change_password():
     print "Changing pass"
-    token = request.args.get('token')
-    oldpass = request.args.get('oldpass')
-    newpass = request.args.get('newpass')
+    token = request.form['token']
+    oldpass = request.form['oldpass']
+    newpass = request.form['newpass']
     response = database_helper.changepassword(token, oldpass, newpass)
     if(response=="Success"):
         return jsonify(success=True,
@@ -77,13 +86,13 @@ def change_password():
                        message="You are not logged in.")
     else:
         return jsonify(success=False,
-                       message="Error")
+                       message="Incorrect old password")
 
 
-@app.route('/getuserdatabytoken', methods=['GET'])
+@app.route('/getuserdatabytoken', methods=['POST'])
 def get_user_data_by_token():
     print "Getting data for user"
-    token = request.args.get('token')
+    token = request.form['token']
     response = database_helper.getuserdatabytoken(token)
     if response=="Error":
         return jsonify(success=False,
@@ -93,16 +102,18 @@ def get_user_data_by_token():
                        message="User data retrieved.",
                        #data=response[0]+", "+response[1]+", "+response[2]+", "+response[3]+", "+response[4]+", "+response[5])
                         data=response)
-@app.route('/getuserdatabyemail', methods=['GET'])
+
+
+@app.route('/getuserdatabyemail', methods=['POST'])
 def get_user_data_by_email():
     print "Getting data for friend"
-    token = request.args.get('token')
+    token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
         return jsonify(success=False,
                        message="Not logged in.")
     else:
-        email = request.args.get('email')
+        email = request.form['email']
         response = database_helper.getuserdatabyemail(email)
         if(response=="Error"):
             return jsonify(success=False,
@@ -110,34 +121,35 @@ def get_user_data_by_email():
         else:
              return jsonify(success=True,
                            message="User data retrieved.",
-                           data=response[0]+", "+response[1]+", "+response[2]+", "+response[3]+", "+response[4]+", "+response[5])
+                           data=response)
 
-@app.route('/postmessage', methods=['GET'])
+
+@app.route('/postmessage', methods=['POST'])
 def post_message():
     print "Posting message"
-    token = request.args.get('token')
+    token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
         return jsonify(success=False,
                        message="Not logged in.")
     else:
-        email = request.args.get('email')
+        email = request.form['email']
         userExist = database_helper.getuserdatabyemail(email)
         if(userExist=="Error"):
             return jsonify(success=False,
                            message="No such user.")
         else:
-            message = request.args.get('message')
+            message = request.form['message']
             response = database_helper.postmessage(email, message)
             if(response == "Success"):
                 return jsonify(success=True, message="Message posted.")
             else:
                 return jsonify(success=False, message="Failed to post.")
 
-@app.route('/getusermessagebytoken', methods=['GET'])
+@app.route('/getusermessagebytoken', methods=['POST'])
 def get_user_message_by_token():
     print "Getting message by token"
-    token = request.args.get('token')
+    token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
         return jsonify(success=False,
@@ -153,16 +165,16 @@ def get_user_message_by_token():
                            message="User messages received.",
                            data=response)
 
-@app.route('/getusermessagebyemail', methods=['GET'])
+@app.route('/getusermessagebyemail', methods=['POST'])
 def get_user_message_by_email():
     print "Getting message by email"
-    token = request.args.get('token')
+    token = request.form['token']
     loggedIn = database_helper.getuserdatabytoken(token)
     if(loggedIn=="Error"):
         return jsonify(success=False,
                        message="Not logged in.")
     else:
-        email = request.args.get('email')
+        email = request.form['email']
         response=database_helper.getmessagebyemail(email)
         if(response=="Error"):
             return jsonify(success=False,

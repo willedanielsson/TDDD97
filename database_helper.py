@@ -74,17 +74,21 @@ def signout(token):
 
 def changepassword(token, oldpass, newpass):
     c = get_db()
-    cursor1 = c.cursor()
+    cursor1 = cursor2 = c.cursor()
     cursor1.execute("SELECT COUNT(*) FROM members WHERE token=?",(token,))
+
     if(cursor1.fetchone()[0]==0):
         return "NotLoggedIn"
     else:
-        cursor = c.cursor()
-        cursor.execute("UPDATE members SET password=? WHERE token=? AND password=?", (newpass, token, oldpass))
-        if(cursor.rowcount==1):
-            return "Success"
-        else:
+
+        cursor2.execute("SELECT COUNT(*) FROM members WHERE password=?", (oldpass,))
+        if(cursor2.fetchone()[0]==0):
             return "False"
+        else:
+            c.execute("UPDATE members SET password=? WHERE token=?", (newpass, token))
+            c.commit()
+            return "Success"
+
 
 def getuserdatabytoken(token):
     c = get_db()
@@ -128,7 +132,7 @@ def getmessagebytoken(token):
 def getmessagebyemail(email):
     c = get_db()
     messagecursor = c.cursor()
-    messagecursor.execute("SELECT message FROM messages2 WHERE email=?", (email,))
+    messagecursor.execute("SELECT message FROM messages WHERE email=?", (email,))
     messages = messagecursor.fetchall()
     if(messages==None):
         return "Error"
