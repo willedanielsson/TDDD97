@@ -5,18 +5,28 @@ from flask import json
 app = Flask(__name__)
 import gevent
 from gevent.wsgi import WSGIServer
+from geventwebsocket.handler import WebSocketHandler
 import database_helper
 # -*- coding: utf-8 -*-
+
+connectedWS = []
 
 @app.route('/')
 def hello_world():
     database_helper.init()
     return app.send_static_file('client.html')
 
-
 @app.route('/signin', methods=['POST'])
 def sign_in():
+    print "Loggin in"
     email = request.form['email']
+    # Send the email to every other logged in users. They will check if it is their email and then be logged-off
+    userToken = database_helper.checkIfLoggedIn(email)
+    print userToken
+    if(userToken!="null"):
+        for ws in connectedWS:
+            ws.send(userToken)
+
     password = request.form['password']
     response = database_helper.signin(email, password)
     json.dumps({'success' : False, 'message' : 'wrong password'})
@@ -52,10 +62,14 @@ def sign_up():
                        message="User already exists.")
 
 
-@app.route('/signout', methods=['GET'])
+@app.route('/logout', methods=['POST'])
 def sign_out():
-    token = request.args.get('token')
-    response = database_helper.signout(token)
+    print "Loggin out"
+    token = request.form['token']
+    data = database_helper.getuserdatabytoken(token)
+    email = data[0]
+
+    response = database_helper.signout(email)
     if(response=="Success"):
         return jsonify(success=True,
                        message="Successfully signed out.")
@@ -170,8 +184,25 @@ def get_user_message_by_email():
                            message="User messages received.",
                            data=response)
 
+@app.route('/socket')
+def socket():
+    ws = None
+    try:
+        print "Socketing"
+        if request.environ.get('wsgi.websocket'):
+            ws  = request.environ['wsgi.websocket']
+            connectedWS.append(ws)
+            print connectedWS
+            while True:
+                message = ws.receive()
+                ws.send(ws)
+        return
+    except Exception, e:
+        print e
+        connectedWS.remove(ws)
+
 
 if __name__ == '__main__':
-    http_server = WSGIServer(('', 5000), app)
+    http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
     http_server.serve_forever()
     app.run(debug=True)

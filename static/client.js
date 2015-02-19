@@ -2,9 +2,34 @@
 var messages;
 var userInfo;
 
-window.onload = function(){
 
+
+var ws = new WebSocket("ws://127.0.0.1:5000/socket");
+
+ws.onopen = function () {
+
+}
+
+ws.onmessage = function (msg) {
+    console.log("Message är:");
+    console.log(msg.data);
+    if(msg.data==sessionStorage.token){
+        closeSession();
+    }
+}
+
+
+window.onload = function(){
  	displayView();
+
+}
+/*
+Function that removes the current session and brings the user back to welcome view
+ */
+var closeSession = function(){
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("loggedInUser");
+    location.reload();
 
 }
 /*
@@ -86,6 +111,7 @@ var login = function(){
                 console.log(response.data);
                 sessionStorage.token = response.data;
                 displayView();
+
             }else if(xmlhttp.status!=200){
                 document.getElementById('failed_login').innerHTML="Login Failed!";
             }
@@ -96,6 +122,8 @@ var login = function(){
         document.getElementById('failed_login').innerHTML="Login Failed!";
     }
         xmlhttp.send("email="+email+"&password="+password);
+    
+        location.reload();
 
 }
 
@@ -268,9 +296,21 @@ newPass = function(){
 }
 
 logout = function(){
-	sessionStorage.removeItem("token");
-    sessionStorage.removeItem("loggedInUser");
-	location.reload();
+
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST","../logout" , true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+            var response = JSON.parse(xmlhttp.responseText);
+
+        }
+    };
+    xmlhttp.send("token="+sessionStorage.token);
+    closeSession();
 }
 /*
 Function retrieves messages for the logged in user
@@ -370,7 +410,7 @@ Returns:
 displayView = function(){
     console.log(sessionStorage.token);
 	if(sessionStorage.token==undefined){
-
+        console.log("Går in");
 		document.getElementById('welcome_content').innerHTML = document.getElementById('welcome_view').innerHTML;
 	}else{
 		document.getElementById('welcome_content').innerHTML = document.getElementById('profile_view').innerHTML;

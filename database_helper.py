@@ -31,6 +31,16 @@ def init():
                "message VARCHAR NOT NULL)")
     c1.commit()
 
+def checkIfLoggedIn(email):
+
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT token FROM members WHERE email= ?", (email,))
+    dbToken = cursor.fetchone()[0]
+
+    print dbToken
+    return dbToken
+
 def signin(email, password):
     c = get_db()
     cursor = c.cursor()
@@ -43,7 +53,6 @@ def signin(email, password):
         return token
     else:
         return "Error"
-
 
 
 def signup(email, password, first, family, gender, city, country):
@@ -63,10 +72,10 @@ def signup(email, password, first, family, gender, city, country):
 
 
 
-def signout(token):
+def signout(email):
     c = get_db()
-    cursor = c.cursor()
-    cursor.execute("UPDATE members SET token = 'NULL' WHERE token=?", (token,))
+    c.execute("UPDATE members SET token = 'null' WHERE email=?", (email,))
+    c.commit()
     if cursor.rowcount==1:
         return "Success"
     else:
