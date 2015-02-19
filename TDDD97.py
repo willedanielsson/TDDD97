@@ -188,7 +188,6 @@ def get_user_message_by_email():
 def socket():
     ws = None
     try:
-        print "Socketing"
         if request.environ.get('wsgi.websocket'):
             ws  = request.environ['wsgi.websocket']
             connectedWS.append(ws)

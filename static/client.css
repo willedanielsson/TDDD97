@@ -1,399 +1,402 @@
 
-body p, body h1, body h2, body a, body span, body label{
-	font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-	margin: 0px;
-	padding: 0px;
-}
-::-webkit-input-placeholder {
-    color:    #8899A6;
-}
-:-moz-placeholder {
-   color:    #8899A6;
-
-}
-::-moz-placeholder {
-   color:    #8899A6;
-
-}
-:-ms-input-placeholder {
-   color:    #8899A6;
-}
-
-body{
-	background-color: white;
-	margin: 0px;
-	padding: 0px;
-}
-
-input, select{
-	display: block;
-	margin-top: 5px;
-	width: 200px;
-
-	font-size: 12px;
-	padding:2px 5px 2px 10px;
-
-	border: solid 1px #cbc9c9;
-
-	background-color: #fff;
-
-	-webkit-border-radius: 5px;
-  	-moz-border-radius: 5px;
-	border-radius: 5px;
-
-	-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-	-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-	box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-}
-
-.button{
-	font-size: 16px;
-  	font-weight: 600;
-  	color: #F0FFFF;
-
-  	padding: 5px 10px 5px 10px;
-  	float: right;
-  	margin-right: 34px;
+	body p, body h1, body h2, body a, body span, body label{
+		font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+		margin: 0px;
+		padding: 0px;
+	}
+	::-webkit-input-placeholder {
+	    color:    #8899A6;
+	}
+	:-moz-placeholder {
+	   color:    #8899A6;
+
+	}
+	::-moz-placeholder {
+	   color:    #8899A6;
+
+	}
+	:-ms-input-placeholder {
+	   color:    #8899A6;
+	}
+
+	body{
+		background-color: white;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	input, select{
+		display: block;
+		margin-top: 5px;
+		width: 200px;
+
+		font-size: 12px;
+		padding:2px 5px 2px 10px;
+
+		border: solid 1px #cbc9c9;
+
+		background-color: #fff;
+
+		-webkit-border-radius: 5px;
+	  	-moz-border-radius: 5px;
+		border-radius: 5px;
+
+		-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+		-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+		box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+	}
+
+	.button{
+		font-size: 16px;
+	  	font-weight: 600;
+	  	color: #F0FFFF;
+
+	  	padding: 5px 10px 5px 10px;
+	  	float: right;
+	  	margin-right: 34px;
+
+		border: solid 1px #cbc9c9;
+
+	  	-webkit-border-radius: 5px;
+	  	-moz-border-radius: 5px;
+	  	border-radius: 5px;
+	  	background-color: #55ACEE;
+
+		-webkit-box-shadow: 0 3px rgba(136, 197, 243,.75);
+	  	-moz-box-shadow: 0 3px rgba(136, 197, 243,.75);
+	  	box-shadow: 0 3px rgba(136, 197, 243,.75);
+
+	  	transition: all 0.1s linear 0s;
+
+	  	position: relative;
+	}
+
+	.button:hover{
+		top: 3px;
+		-webkit-box-shadow: none;
+	  	-moz-box-shadow: none;
+	  	box-shadow: none;
+	  	cursor: pointer;
+	}
+
+	.warning_text{
+		font-size: 15px;
+		color: red;
+		margin-top: 40px;
+	}
+
+	#welcome_content{
+		margin-right: auto;
+		margin-left: auto;
+		margin-top: 100px;
+
+		width: 600px;
+		height: 400px;
+		border: 1px solid black;
+		background-color: #F0FFFF;
+	}
+
+	#welcome_content #greeting{
+		width: 340px;
+		float: left;
 
-	border: solid 1px #cbc9c9;
+		display: inline-block;
+		text-align: center;
+	}
 
-  	-webkit-border-radius: 5px;
-  	-moz-border-radius: 5px;
-  	border-radius: 5px;
-  	background-color: #55ACEE;
-
-	-webkit-box-shadow: 0 3px rgba(136, 197, 243,.75);
-  	-moz-box-shadow: 0 3px rgba(136, 197, 243,.75);
-  	box-shadow: 0 3px rgba(136, 197, 243,.75);
-
-  	transition: all 0.1s linear 0s;
+	#welcome_content #greeting h1{
+		font-size: 40px;
+		color: #55ACEE;
 
-  	position: relative;
-}
-
-.button:hover{
-	top: 3px;
-	-webkit-box-shadow: none;
-  	-moz-box-shadow: none;
-  	box-shadow: none;
-  	cursor: pointer;
-}
-
-.warning_text{
-	font-size: 15px;
-	color: red;
-	margin-top: 40px;
-}
-
-#welcome_content{
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 100px;
+		margin-top: 20px;
+	}
 
-	width: 600px;
-	height: 400px;
-	border: 1px solid black;
-	background-color: #F0FFFF;
-}
+	#welcome_content #greeting #logo_bird{
+		width: 200px;
+		margin-top: 20px;
+	}
 
-#welcome_content #greeting{
-	width: 340px;
-	float: left;
+	#welcome_content #greeting h2{
+		color: rgba(136, 197, 243,.75);
+		margin-top: 20px;
+	}
 
-	display: inline-block;
-	text-align: center;
-}
 
-#welcome_content #greeting h1{
-	font-size: 40px;
-	color: #55ACEE;
+	#welcome_content #member_area{
+		width: 250px;
 
-	margin-top: 20px;
-}
+		display: inline-block;
+		padding-left: 10px;
 
-#welcome_content #greeting #logo_bird{
-	width: 200px;
-	margin-top: 20px;
-}
+	}
 
-#welcome_content #greeting h2{
-	color: rgba(136, 197, 243,.75);
-	margin-top: 20px;
-}
+	#welcome_content #member_area #login{
+		margin-top: 20px;
+	    height: 100px;
 
+	}
 
-#welcome_content #member_area{
-	width: 250px;
+	#welcome_content #member_area #login #login_form{
 
-	display: inline-block;
-	padding-left: 10px;
+	}
 
-}
+	#welcome_content #member_area #login #login_form input,
+	#welcome_content #member_area #register input{
+		margin-top: 5px;
+	}
 
-#welcome_content #member_area #login{
-	margin-top: 20px;
-    height: 100px;
+	#welcome_content #member_area #login #login_form #login_button{
+		margin-top: 5px;
+	}
+	#welcome_content #member_area #login #failed_login{
+		margin-top: 5px;
+	}
 
-}
+	#welcome_content #member_area #register{
 
-#welcome_content #member_area #login #login_form{
+	}
 
-}
+	#welcome_content #member_area #register select{
+		margin-top: 5px;
+		width: 90px;
+		color: #8899A6;
+	}
+	#welcome_content #member_area #register select:hover{
+		cursor: pointer;
+	}
 
-#welcome_content #member_area #login #login_form #login_button{
-	margin-top: 5px;
-}
-#welcome_content #member_area #login #failed_login{
-	margin-top: 5px;
-}
-
-#welcome_content #member_area #register{
-
-}
-
-#welcome_content #member_area #register input{
-
-}
-
-#welcome_content #member_area #register select{
-	width: 90px;
-	color: #8899A6;
-}
-#welcome_content #member_area #register select:hover{
-	cursor: pointer;
-}
-
-#welcome_content #member_area #register #register_button{
-	width: 90px;
-}
-
-#user_page p{
-	font-size: 12px;
-}
-
-#user_page #navigation{
-	text-align: center;
-	height: 60px;
-}
-
-#user_page #navigation ul{
-	list-style-type: none;
-	display: inline-block;
-
-	padding-left: 0;
-}
-
-#user_page #navigation ul li{
-	display: inline-block;
-
-	width: 150px;
-	margin-right: 4px;
-
-
-	color: #eeeeee;
-}
-
-#user_page #navigation ul li a{
-	text-decoration: none;
-
-	font-size: 25px;
-	color: #55ACEE;
-	opacity: 0.6;
-}
-
-#user_page #navigation ul li a:hover{
-	opacity: 1.0;
-}
-#user_page .user_content{
-	height: 330px;
-	margin: 0 10px;
-
-}
-
-#user_page #home_content #user_information{
-	display: inline-block;
-
-	margin-left: 10px;
-	margin-top: 100px;
-	float: left;
-	width: 200px;
-	height: 100%;
-}
-
-#user_page .post_content{
-	display: inline-block;
-	height: 100%;
-	width: 350px;
-	border-left: 1px solid blue;
-}
-
-#user_page #home_content .post_content .post_post{
-	width: 100%;
-	margin-left: 8px;
-	margin-bottom: 5px;
-}
-
-#user_page #home_content .post_content .post_post .post_textarea{
-	width: 250px;
-	height: 30px;
-	resize: none;
-
-	margin-top: 10px;
-	margin-left: 0px;
-}
-
-
-#user_page #home_content .post_content .post_post #post_button{
-	float: right;
-	margin-top: 15px;
-	margin-right: 10px;
-}
-
-#user_page #home_content .post_content .post_list{
-	margin-left: 8px;
-	height: 250px;
-	background-color: white;
-	border: 1px solid #55ACEE;
-	-moz-box-shadow:    inset 0 0 10px #FFF;
-    -webkit-box-shadow: inset 0 0 10px #FFF;
-    box-shadow:         inset 0 0 5px #FFF;
-    overflow: scroll;
-
-}
-
-#user_page #home_content .post_content .post_list #post_list_list, #user_page #browse_content #friend_post_list #friend_post_list_list{
-	list-style: none;
-	padding: 0;
-	margin: 10px 10px;
-}
-
-#user_page #home_content .post_content .post_list #post_list_list li, #user_page #browse_content #friend_post_list li{
-	font-size: 15px;
-	height: 40px;
-	border-radius: 5px;
-	border: 3px solid #55ACEE;
-	margin-bottom: 5px;
-	padding: 5px 5px;
-}
-
-#user_page #home_content .post_content #button_div{
-	text-align: center;
-}
-
-#user_page #home_content .post_content #reload_messages{
-	margin-left: auto;
-	margin-right: auto;
-
-	text-decoration: none;
-	font-size: 30px;
-}
-
-#user_page #account_content{
-	display: none;
-}
-
-#user_page #account_content #forgot_pass_form{}
-
-#user_page #account_content #forgot_pass_form input{
-	display: block;
-	margin-top: 10px;
-}
-
-#user_page #account_content #forgot_pass_form button{
-	display: block;
-	margin-top: 10px;
-	width: auto;
-	float: left;
-}
-
-#user_page #account_content #new_pass_text{
-	margin-top: 10px;
-}
-
-#user_page #browse_content{
-	display: none;
-}
-
-#user_page #browse_content #friend_post_content{
-	border: none;
-
-}
-#user_page #browse_content #find_part{
-	display: inline-block;
-
-	margin-left: 10px;
-	margin-top: 10px;
-	float: left;
-	width: 200px;
-	height: 100%;
-}
-
-#user_page #browse_content #find_part #find_user_form{
-	height: 100px;
-}
-
-#user_page #browse_content #find_part #find_user_form #find_user_button{
-	float: left;
-	margin-top: 10px;
-}
-#user_page #browse_content #find_part #find_user_form #user_search_text{
-    margin-top: 5px;
-}
-
-#user_page #browse_content #find_part #friend_info{
-	display: block;
-}
-
-#user_page #browse_content .post_content .post_post{
-	width: 100%;
-	margin-left: 8px;
-	margin-bottom: 5px;
-}
-
-#user_page #browse_content .post_content .post_post .post_textarea{
-	width: 250px;
-	height: 30px;
-	resize: none;
-
-	margin-top: 10px;
-	margin-left: 0px;
-}
-
-#user_page #browse_content .post_content .post_post #friend_post_textarea{
-	margin-left: 20px;
-}
-
-#user_page #browse_content .post_content .post_post #post_button{
-	float: right;
-	margin-top: 15px;
-	margin-right: 10px;
-}
-
-#user_page #browse_content .post_content #button_div{
-	text-align: center;
-}
-
-#user_page #browse_content .post_content #reload_messages{
-	margin-left: auto;
-	margin-right: auto;
-
-	text-decoration: none;
-	font-size: 30px;
-}
-
-#user_page #browse_content #friend_post_list{
-	background-color: white;
-	margin-left: 20px;
-	margin-top: 10px;
-
-	width: 350px;
-	height: 250px;
-
-	border: 1px solid #55ACEE;
-	-moz-box-shadow:    inset 0 0 10px #FFF;
-    -webkit-box-shadow: inset 0 0 10px #FFF;
-    box-shadow:         inset 0 0 5px #FFF;
-    overflow: scroll;
-}
+	#welcome_content #member_area #register #register_button{
+		width: 90px;
+		margin-top: 5px;
+	}
+
+	#user_page p{
+		font-size: 12px;
+	}
+
+	#user_page #navigation{
+		text-align: center;
+		height: 60px;
+	}
+
+	#user_page #navigation ul{
+		list-style-type: none;
+		display: inline-block;
+
+		padding-left: 0;
+	}
+
+	#user_page #navigation ul li{
+		display: inline-block;
+
+		width: 150px;
+		margin-right: 4px;
+
+
+		color: #eeeeee;
+	}
+
+	#user_page #navigation ul li a{
+		text-decoration: none;
+
+		font-size: 25px;
+		color: #55ACEE;
+		opacity: 0.6;
+	}
+
+	#user_page #navigation ul li a:hover{
+		opacity: 1.0;
+	}
+	#user_page .user_content{
+		height: 330px;
+		margin: 0 10px;
+
+	}
+
+	#user_page #home_content #user_information{
+		display: inline-block;
+
+		margin-left: 10px;
+		margin-top: 100px;
+		float: left;
+		width: 200px;
+		height: 100%;
+	}
+
+	#user_page .post_content{
+		display: inline-block;
+		height: 100%;
+		width: 350px;
+		border-left: 1px solid blue;
+	}
+
+	#user_page #home_content .post_content .post_post{
+		width: 100%;
+		margin-left: 8px;
+		margin-bottom: 5px;
+	}
+
+	#user_page #home_content .post_content .post_post .post_textarea{
+		width: 250px;
+		height: 30px;
+		resize: none;
+
+		margin-top: 10px;
+		margin-left: 0px;
+	}
+
+
+	#user_page #home_content .post_content .post_post #post_button{
+		float: right;
+		margin-top: 15px;
+		margin-right: 10px;
+	}
+
+	#user_page #home_content .post_content .post_list{
+		margin-left: 8px;
+		height: 250px;
+		background-color: white;
+		border: 1px solid #55ACEE;
+		-moz-box-shadow:    inset 0 0 10px #FFF;
+	    -webkit-box-shadow: inset 0 0 10px #FFF;
+	    box-shadow:         inset 0 0 5px #FFF;
+	    overflow: scroll;
+
+	}
+
+	#user_page #home_content .post_content .post_list #post_list_list, #user_page #browse_content #friend_post_list #friend_post_list_list{
+		list-style: none;
+		padding: 0;
+		margin: 10px 10px;
+	}
+
+	#user_page #home_content .post_content .post_list #post_list_list li, #user_page #browse_content #friend_post_list li{
+		font-size: 15px;
+		height: 40px;
+		border-radius: 5px;
+		border: 3px solid #55ACEE;
+		margin-bottom: 5px;
+		padding: 5px 5px;
+	}
+
+	#user_page #home_content .post_content #button_div{
+		text-align: center;
+	}
+
+	#user_page #home_content .post_content #reload_messages{
+		margin-left: auto;
+		margin-right: auto;
+
+		text-decoration: none;
+		font-size: 30px;
+	}
+
+	#user_page #account_content{
+		display: none;
+	}
+
+	#user_page #account_content #forgot_pass_form{}
+
+	#user_page #account_content #forgot_pass_form input{
+		display: block;
+		margin-top: 10px;
+	}
+
+	#user_page #account_content #forgot_pass_form button{
+		display: block;
+		margin-top: 10px;
+		width: auto;
+		float: left;
+	}
+
+	#user_page #account_content #new_pass_text{
+		margin-top: 10px;
+	}
+
+	#user_page #browse_content{
+		display: none;
+	}
+
+	#user_page #browse_content #friend_post_content{
+		border: none;
+
+	}
+	#user_page #browse_content #find_part{
+		display: inline-block;
+
+		margin-left: 10px;
+		margin-top: 10px;
+		float: left;
+		width: 200px;
+		height: 100%;
+	}
+
+	#user_page #browse_content #find_part #find_user_form{
+		height: 100px;
+	}
+
+	#user_page #browse_content #find_part #find_user_form #find_user_button{
+		float: left;
+		margin-top: 10px;
+	}
+	#user_page #browse_content #find_part #find_user_form #user_search_text{
+	    margin-top: 5px;
+	}
+
+	#user_page #browse_content #find_part #friend_info{
+		display: block;
+	}
+
+	#user_page #browse_content .post_content .post_post{
+		width: 100%;
+		margin-left: 8px;
+		margin-bottom: 5px;
+	}
+
+	#user_page #browse_content .post_content .post_post .post_textarea{
+		width: 250px;
+		height: 30px;
+		resize: none;
+
+		margin-top: 10px;
+		margin-left: 0px;
+	}
+
+	#user_page #browse_content .post_content .post_post #friend_post_textarea{
+		margin-left: 20px;
+	}
+
+	#user_page #browse_content .post_content .post_post #post_button{
+		float: right;
+		margin-top: 15px;
+		margin-right: 10px;
+	}
+
+	#user_page #browse_content .post_content #button_div{
+		text-align: center;
+	}
+
+	#user_page #browse_content .post_content #reload_messages{
+		margin-left: auto;
+		margin-right: auto;
+
+		text-decoration: none;
+		font-size: 30px;
+	}
+
+	#user_page #browse_content #friend_post_list{
+		background-color: white;
+		margin-left: 20px;
+		margin-top: 10px;
+
+		width: 350px;
+		height: 250px;
+
+		border: 1px solid #55ACEE;
+		-moz-box-shadow:    inset 0 0 10px #FFF;
+	    -webkit-box-shadow: inset 0 0 10px #FFF;
+	    box-shadow:         inset 0 0 5px #FFF;
+	    overflow: scroll;
+	}
 
 

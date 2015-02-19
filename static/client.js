@@ -108,10 +108,13 @@ var login = function(){
             if(xmlhttp.readyState==4 && xmlhttp.status==200) {
 
                 var response = JSON.parse(xmlhttp.responseText);
-                console.log(response.data);
-                sessionStorage.token = response.data;
-                displayView();
-
+                console.log(response);
+                if(response.success==true) {
+                    sessionStorage.token = response.data;
+                    displayView();
+                }else{
+                    document.getElementById('failed_login').innerHTML=response.message;
+                }
             }else if(xmlhttp.status!=200){
                 document.getElementById('failed_login').innerHTML="Login Failed!";
             }
@@ -122,7 +125,7 @@ var login = function(){
         document.getElementById('failed_login').innerHTML="Login Failed!";
     }
         xmlhttp.send("email="+email+"&password="+password);
-    
+
         location.reload();
 
 }

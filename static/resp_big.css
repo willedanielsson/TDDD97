@@ -1,0 +1,50 @@
+
+@media (min-width: 1000px) {
+	
+	body{
+
+	}
+	
+	#welcome_content{
+		margin-top: 0;
+		width: 1000px;
+		height: 100%;
+	}
+	#welcome_content #greeting{
+		float: none;
+	}
+
+	#welcome_content #greeting #logo_bird{
+		width: 300px;
+	}
+
+	#welcome_content #member_area{
+		margin-left: 10px;
+		width: initial;
+		float: right;
+		margin-top: 30px;
+		margin-right: 100px;
+	}
+
+	#welcome_content #member_area #login{
+		display: table-cell;
+	}
+
+	#welcome_content #member_area #register{
+		display: table-cell;
+		padding-left: 100px;
+	}
+	
+
+	#user_page #home_content #user_information{
+		width: 300px;
+	}
+
+	#user_page .post_content{
+		width: 400px;
+	}
+	
+	#user_page #home_content .post_content .post_post #post_button{
+		margin-top: 8px;
+	}
+}

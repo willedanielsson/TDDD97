@@ -1,0 +1,6 @@
+
+@media( max-width: 600px){
+	#welcome_content{
+		background-color: blue;
+	}
+}
