@@ -56,7 +56,7 @@ def signin(email, password):
 
 
 def signup(email, password, first, family, gender, city, country):
-    c = get_db()
+    c = c1 = get_db()
     cursor = c.cursor()
     token = "null"
     cursor.execute("SELECT COUNT(*) FROM members WHERE email=?",(email,))
@@ -64,6 +64,9 @@ def signup(email, password, first, family, gender, city, country):
         try:
             c.execute("INSERT INTO members VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (email, password, first, family, gender, city, country, token))
             c.commit()
+            print email
+            c1.execute("INSERT INTO visitors VALUES(?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)", (email,))
+            c1.commit()
             return "Success"
         except:
             return "Error"
@@ -147,3 +150,10 @@ def getmessagebyemail(email):
         return "Error"
     else:
         return messages
+
+def getVisitors(email):
+    c = get_db()
+    visitorCursor = c.cursor()
+    visitorCursor.execute("SELECT * FROM visitors WHERE email=?", (email,))
+    visitors = visitorCursor.fetchall()
+    return visitors

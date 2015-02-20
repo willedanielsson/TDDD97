@@ -399,4 +399,8 @@
 	    overflow: scroll;
 	}
 
+    #user_page #stats_content{
+        display: none;
+    }
+
 

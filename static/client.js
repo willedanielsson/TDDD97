@@ -200,16 +200,17 @@ getHomeData = function(){
                 document.getElementById('user_location').innerHTML = userInfo.data[4] +", " + userInfo.data[5];
 
                 var data= {
-                    "email":userInfo.data[0],
-                    "firstName": userInfo.data[1],
-                    "lastName": userInfo.data[2],
-                    "gender": userInfo.data[3],
-                    "city": userInfo.data[4],
-                    "country": userInfo.data[5]
+                    email:userInfo.data[0],
+                    firstName: userInfo.data[1],
+                    lastName: userInfo.data[2],
+                    gender: userInfo.data[3],
+                    city: userInfo.data[4],
+                    country: userInfo.data[5]
                 };
 
-
                 user = JSON.stringify(data);
+
+                //user = JSON.stringify(data);
                 sessionStorage.setItem("loggedInUser",user);
 
             }
@@ -436,14 +437,23 @@ clickedNav = function(link){
 		document.getElementById('home_content').style.display= "block";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="browse"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "block";
 		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="account"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "block";
-	}
+        document.getElementById('stats_content').style.display= "none";
+	}else if(link==="stats"){
+        getDataForGraph();
+        document.getElementById('home_content').style.display= "none";
+		document.getElementById('browse_content').style.display= "none";
+		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "block";
+    }
 
 }
