@@ -1,6 +1,7 @@
 
 var initChart = function (barData) {
-    
+    console.log(barData);
+
     var vis = d3.select('#visualisation'),
     WIDTH = 500,
     HEIGHT = 200,
@@ -66,6 +67,7 @@ function getDataForGraph(){
     email = JSON.parse(sessionStorage.loggedInUser).email;
     console.log(JSON.parse(sessionStorage.loggedInUser).email);
 
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST","../getVisitors" , true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -117,6 +119,7 @@ function getDataForGraph(){
         }
     };
     xmlhttp.send("email="+email);
+
 
 }
 

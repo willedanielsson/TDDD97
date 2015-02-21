@@ -41,8 +41,11 @@ def sign_in():
     userToken = database_helper.checkIfLoggedIn(email)
     print userToken
     if(userToken!="null"):
+        data = json.dumps({'token': userToken,
+                       'action':"sign"})
+
         for ws in connectedWS:
-            ws.send(userToken)
+            ws.send(data)
 
     password = request.form['password']
     response = database_helper.signin(email, password)
@@ -139,7 +142,16 @@ def get_user_data_by_email():
             return jsonify(success=False,
                            message="No such user.")
         else:
-             return jsonify(success=True,
+            visitors = database_helper.getVisitors(email)
+            data = json.dumps({'email': email,
+                       'action':"view",
+                       'visitors': visitors})
+        print "SENDING"
+        for ws in connectedWS:
+            print ws
+            ws.send(data)
+
+            return jsonify(success=True,
                            message="User data retrieved.",
                            data=response)
 
@@ -216,6 +228,7 @@ def socket():
     except Exception, e:
         print e
         connectedWS.remove(ws)
+
 
 
 if __name__ == '__main__':
