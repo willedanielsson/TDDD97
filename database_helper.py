@@ -121,52 +121,9 @@ def getuserdatabyemail(email):
     cursor.execute("SELECT email, first_name, family_name, gender, city, country FROM members WHERE email=?",(email,))
     result = cursor.fetchone()
     if(result!=None):
-        addView(email)
         return result
     else:
         return "Error"
-
-def addView(email):
-    c = get_db()
-    monthNum =  now.month
-
-    if monthNum == 1:
-        c.execute("UPDATE visitors SET jan = jan+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 2:
-        c.execute("UPDATE visitors SET feb = feb+20 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 3:
-        c.execute("UPDATE visitors SET mar = mar+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 4:
-        c.execute("UPDATE visitors SET apr = apr+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 5:
-        c.execute("UPDATE visitors SET may = may+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 6:
-        c.execute("UPDATE visitors SET jun = jun+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 7:
-        c.execute("UPDATE visitors SET jul = jul+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 8:
-        c.execute("UPDATE visitors SET aug = aug+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 9:
-        c.execute("UPDATE visitors SET sep = sep+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 10:
-        c.execute("UPDATE visitors SET oct = oct+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 11:
-        c.execute("UPDATE visitors SET nov = nov+1 WHERE email=?", (email,))
-        c.commit()
-    elif monthNum == 12:
-        c.execute("UPDATE visitors SET dec = dec+1 WHERE email=?", (email,))
-        c.commit()
-
 
 def postmessage(email, message):
     c = get_db()
@@ -196,10 +153,3 @@ def getmessagebyemail(email):
         return "Error"
     else:
         return messages
-
-def getVisitors(email):
-    c = get_db()
-    visitorCursor = c.cursor()
-    visitorCursor.execute("SELECT * FROM visitors WHERE email=?", (email,))
-    visitors = visitorCursor.fetchall()
-    return visitors

@@ -16,22 +16,6 @@ def hello_world():
     database_helper.init()
     return app.send_static_file('client.html')
 
-@app.route('/stats')
-def stats():
-    return app.send_static_file('stats.html')
-
-@app.route('/getVisitors', methods=['POST'])
-def getVisitors():
-    email = request.form['email']
-    response = database_helper.getVisitors(email)
-
-    if response=="Error":
-        return jsonify(success=False,
-                       message="Wrong username or password.",)
-    else:
-        return jsonify(success=True,
-                       message="Successfully signed in.",
-                       data=response)
 
 @app.route('/signin', methods=['POST'])
 def sign_in():
@@ -142,15 +126,6 @@ def get_user_data_by_email():
             return jsonify(success=False,
                            message="No such user.")
         else:
-            visitors = database_helper.getVisitors(email)
-            data = json.dumps({'email': email,
-                       'action':"view",
-                       'visitors': visitors})
-        print "SENDING"
-        for ws in connectedWS:
-            print ws
-            ws.send(data)
-
             return jsonify(success=True,
                            message="User data retrieved.",
                            data=response)

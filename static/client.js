@@ -14,50 +14,8 @@ ws.onmessage = function (msg) {
     console.log("Message är:");
     msgData = JSON.parse(msg.data);
     console.log(msgData);
-    if(msgData.action=="sign" && msgData.token==sessionStorage.token){
+    if(msgData.action=="sign" && msgData.token==sessionStorage.token) {
         closeSession();
-    }else if(msgData.action=="view" && msgData.email == JSON.parse(sessionStorage.getItem("loggedInUser")).email){
-
-        data = msgData.visitors[0];
-
-        var barData = [{
-                'x': 1,
-                'y': data[1]
-                }, {
-                'x': 2,
-                'y': data[2]
-                }, {
-                'x': 3,
-                'y': data[3]
-                }, {
-                'x': 4,
-                'y': data[4]
-                }, {
-                'x': 5,
-                'y': data[5]
-                }, {
-                'x': 6,
-                'y': data[6]
-                }, {
-                'x': 7,
-                'y': data[7]
-                }, {
-                'x': 8,
-                'y': data[8]
-                }, {
-                'x': 9,
-                'y': data[9]
-                }, {
-                'x': 10,
-                'y': data[10]
-                }, {
-                'x': 11,
-                'y': data[11]
-                }, {
-                'x': 12,
-                'y': data[12]
-                }];
-            initChart(barData);
     }
 };
 
@@ -480,23 +438,18 @@ clickedNav = function(link){
 		document.getElementById('home_content').style.display= "block";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "none";
-        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="browse"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "block";
 		document.getElementById('account_content').style.display= "none";
-        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="account"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "block";
-        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="stats"){
-        getDataForGraph();
         document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "none";
-        document.getElementById('stats_content').style.display= "block";
     }
 
 }
