@@ -243,8 +243,10 @@ var getUserMessages = function(){
                 var messages = JSON.parse(xmlhttp.responseText);
                 document.getElementById('post_list_list').innerHTML = '';
                 for (var i = messages.data.length - 1; i >= 0; i--) {
-                    var listItem = document.createElement("li");
+                    var listItem = document.createElement('li');
                     listItem.innerHTML = messages.data[i][0];
+                    listItem.setAttribute("draggable", "true");
+                    listItem.setAttribute("ondragstart", "drag(event)");
                     document.getElementById('post_list_list').appendChild(listItem);
                 }
 
@@ -252,6 +254,21 @@ var getUserMessages = function(){
         };
         xmlhttp.send("token=" + token);
     }
+}
+
+function drag(event){
+    event.dataTransfer.setData("text", event.target.innerHTML);
+}
+
+function drop(event){
+    event.preventDefault();
+    var data = event.dataTransfer.getData("text");
+    console.log(data);
+    event.target.innerHTML=data;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
 }
 
 /*
