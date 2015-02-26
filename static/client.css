@@ -403,4 +403,9 @@
         display: none;
     }
 
+    #user_page #stats_content p{
+        font-size: 30px;
+        margin-left: 20px;
+    }
+
 

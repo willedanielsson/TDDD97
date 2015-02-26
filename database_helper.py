@@ -34,6 +34,8 @@ def init():
                "message VARCHAR NOT NULL)")
     c1.commit()
 
+
+
 def checkIfLoggedIn(email):
 
     c = get_db()
@@ -68,7 +70,7 @@ def signup(email, password, first, family, gender, city, country):
             c.execute("INSERT INTO members VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (email, password, first, family, gender, city, country, token))
             c.commit()
             print email
-            c1.execute("INSERT INTO visitors VALUES(?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)", (email,))
+            c1.execute("INSERT INTO visitors VALUES(?, 0)", (email,))
             c1.commit()
             return "Success"
         except:
@@ -121,6 +123,8 @@ def getuserdatabyemail(email):
     cursor.execute("SELECT email, first_name, family_name, gender, city, country FROM members WHERE email=?",(email,))
     result = cursor.fetchone()
     if(result!=None):
+        c.execute("UPDATE visitors SET number=number+1 WHERE email=?",(email,))
+        c.commit()
         return result
     else:
         return "Error"
@@ -153,3 +157,33 @@ def getmessagebyemail(email):
         return "Error"
     else:
         return messages
+
+def getNumberOfLoggedInUsers():
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT COUNT(*) FROM members WHERE token='null'")
+    number = cursor.fetchone()[0]
+    return number
+
+def tokenToEmail(token):
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT email from members WHERE token=?",(token,))
+    email = cursor.fetchone()[0]
+    return email
+
+def getNumberOfVisits(token):
+    email = tokenToEmail(token)
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT number FROM visitors WHERE email=?",(email,))
+    result = cursor.fetchone()[0]
+    return result
+
+def getNumberOfPosts(token):
+    email = tokenToEmail(token)
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT COUNT(*) FROM messages WHERE email=?", (email,))
+    result = cursor.fetchone()[0]
+    return result

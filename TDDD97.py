@@ -188,6 +188,23 @@ def get_user_message_by_email():
                            message="User messages received.",
                            data=response)
 
+
+@app.route('/getStats', methods=['POST'])
+def getStats():
+    token = request.form['token']
+    active = database_helper.getNumberOfLoggedInUsers()
+
+    numberOfVisits = database_helper.getNumberOfVisits(token)
+
+    numberOfPosts = database_helper.getNumberOfPosts(token)
+
+
+    return jsonify(success=True,
+                active =active,
+                visits=numberOfVisits,
+                posts=numberOfPosts)
+
+
 @app.route('/socket')
 def socket():
     ws = None

@@ -455,18 +455,43 @@ clickedNav = function(link){
 		document.getElementById('home_content').style.display= "block";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="browse"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "block";
 		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="account"){
 		document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "block";
+        document.getElementById('stats_content').style.display= "none";
 	}else if(link==="stats"){
+        getStats();
         document.getElementById('home_content').style.display= "none";
 		document.getElementById('browse_content').style.display= "none";
 		document.getElementById('account_content').style.display= "none";
+        document.getElementById('stats_content').style.display= "block";
     }
 
 }
+var getStats = function () {
+
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST","../getStats" , true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+                var stats = JSON.parse(xmlhttp.responseText);
+                console.log(stats);
+
+                document.getElementById('stats_logged').innerHTML = stats.active;
+                document.getElementById('stats_visits').innerHTML = stats.visits;
+                document.getElementById('stats_posts').innerHTML = stats.posts;
+            }
+        };
+        xmlhttp.send("token="+sessionStorage.token);
+
+
+};
