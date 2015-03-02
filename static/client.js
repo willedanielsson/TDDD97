@@ -17,6 +17,18 @@ ws.onmessage = function (msg) {
     if(msgData.action=="sign" && msgData.token==sessionStorage.token) {
         closeSession();
     }
+    else if(msgData.action=="newLogin"){
+        loggedInUsers = parseInt(document.getElementById('stats_logged').innerHTML)+1;
+        document.getElementById('stats_logged').innerHTML=loggedInUsers;
+
+    }else if(msgData.action=="removeLogin"){
+        loggedInUsers = parseInt(document.getElementById('stats_logged').innerHTML)-1;
+        document.getElementById('stats_logged').innerHTML=loggedInUsers;
+    }else if(msgData.action=="newVisit" && msgData.token==sessionStorage.token){
+        console.log("CORRECT");
+        visits = msgData.visits;
+        document.getElementById('stats_visits').innerHTML=visits;
+    }
 };
 
 

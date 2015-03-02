@@ -82,12 +82,14 @@ def signup(email, password, first, family, gender, city, country):
 
 def signout(email):
     c = get_db()
-    c.execute("UPDATE members SET token = 'null' WHERE email=?", (email,))
+    c.execute("UPDATE members SET token='null' WHERE email=?", (email,))
     c.commit()
-    if cursor.rowcount==1:
-        return "Success"
-    else:
-        return "Error"
+   # print c.
+    #if cursor.rowcount==1:
+     #   return "Success"
+    #else:
+    #    return "Error"
+
 
 def changepassword(token, oldpass, newpass):
     c = get_db()
@@ -161,7 +163,7 @@ def getmessagebyemail(email):
 def getNumberOfLoggedInUsers():
     c = get_db()
     cursor = c.cursor()
-    cursor.execute("SELECT COUNT(*) FROM members WHERE token='null'")
+    cursor.execute("SELECT COUNT(*) FROM members WHERE token!='null'")
     number = cursor.fetchone()[0]
     return number
 
@@ -172,11 +174,26 @@ def tokenToEmail(token):
     email = cursor.fetchone()[0]
     return email
 
+def emailToToken(email):
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT token FROM members WHERE email=?", (email,))
+    token = cursor.fetchone()[0]
+    return token
+
 def getNumberOfVisits(token):
     email = tokenToEmail(token)
     c = get_db()
     cursor = c.cursor()
     cursor.execute("SELECT number FROM visitors WHERE email=?",(email,))
+    result = cursor.fetchone()[0]
+    return result
+
+def addVisit(email):
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("UPDATE visitors SET number=number+1 WHERE email=?", (email,))
+    cursor.execute("SELECT number FROM visitors WHERE email=?", (email,))
     result = cursor.fetchone()[0]
     return result
 

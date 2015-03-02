@@ -23,13 +23,15 @@ def sign_in():
     email = request.form['email']
     # Send the email to every other logged in users. They will check if it is their email and then be logged-off
     userToken = database_helper.checkIfLoggedIn(email)
-    print userToken
     if(userToken!="null"):
+        replaced = True
         data = json.dumps({'token': userToken,
                        'action':"sign"})
 
         for ws in connectedWS:
             ws.send(data)
+    else:
+        replaced=False
 
     password = request.form['password']
     response = database_helper.signin(email, password)
@@ -38,6 +40,12 @@ def sign_in():
         return jsonify(success=False,
                        message="Wrong username or password.",)
     else:
+        # If the new logged in replaced an already logged in user, there is no change in the number
+        # of currently logged in user. Else, we send the new data for stats to the users
+        if(replaced==False):
+            data = json.dumps({'action':"newLogin"})
+            for ws in connectedWS:
+                ws.send(data)
         return jsonify(success=True,
                        message="Successfully signed in.",
                        data=response)
@@ -70,16 +78,16 @@ def sign_up():
 def sign_out():
     print "Loggin out"
     token = request.form['token']
-    data = database_helper.getuserdatabytoken(token)
-    email = data[0]
+    email = database_helper.tokenToEmail(token)
 
-    response = database_helper.signout(email)
-    if(response=="Success"):
-        return jsonify(success=True,
-                       message="Successfully signed out.")
-    else:
-        return jsonify(success=False,
-                       message="You are not signed in.")
+    database_helper.signout(email)
+
+    data = json.dumps({'action':"removeLogin"})
+    for ws in connectedWS:
+        ws.send(data)
+    return jsonify(success=True,
+                   message="Successfully signed out.")
+
 
 @app.route('/changepassword', methods=['POST'])
 def change_password():
@@ -126,6 +134,18 @@ def get_user_data_by_email():
             return jsonify(success=False,
                            message="No such user.")
         else:
+            print "GET"
+            numberOfVisits=database_helper.addVisit(email)
+            print numberOfVisits
+            token = database_helper.emailToToken(email)
+
+            data = json.dumps({'visits': numberOfVisits,
+                               'token':token,
+                                'action':"newVisit"})
+
+            for ws in connectedWS:
+                ws.send(data)
+
             return jsonify(success=True,
                            message="User data retrieved.",
                            data=response)
@@ -212,13 +232,11 @@ def socket():
         if request.environ.get('wsgi.websocket'):
             ws  = request.environ['wsgi.websocket']
             connectedWS.append(ws)
-            print connectedWS
             while True:
                 message = ws.receive()
                 ws.send(ws)
         return
     except Exception, e:
-        print e
         connectedWS.remove(ws)
 
 
