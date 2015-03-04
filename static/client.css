@@ -208,7 +208,7 @@
 		opacity: 1.0;
 	}
 	#user_page .user_content{
-		height: 330px;
+
 		margin: 0 10px;
 
 	}
@@ -293,6 +293,7 @@
 
 	#user_page #account_content{
 		display: none;
+        height: 200px;
 	}
 
 	#user_page #account_content #forgot_pass_form{}
@@ -408,4 +409,61 @@
         margin-left: 20px;
     }
 
+    #user_page #stats_content .canvas{
+        width: 250px;
+        height: 150px;
+        border: 1px solid black;
+        
+        position: relative;
+        margin-bottom: 50px;
+    }
 
+    #user_page #stats_content .bar_text{
+        font-size: 10px;
+    }
+
+    #user_page #stats_content .canvas #bar_average_posts,
+    #user_page #stats_content .canvas #bar_average_visits{
+        width: 60px;
+        background-color: #DCDCDC;
+
+        margin-left: 30px;
+        position: absolute;
+        bottom: 30px;
+        
+    }
+
+    #user_page #stats_content .canvas #bar_posts,
+    #user_page #stats_content .canvas #bar_visits{
+
+        width: 60px;
+        background-color: #B0B0B0;
+
+        margin-left: 150px;
+        position: absolute;
+        bottom: 30px;
+    }
+
+    #user_page #stats_content .canvas .bar_info{
+        width: 250px;
+        height: 30px;
+        border: 1px solid black;
+        position: absolute;
+        bottom: 0;
+    }
+    
+    #user_page #stats_content .canvas .bar_info_text_aver{
+        display: inline-block;
+        margin-left: 20px;
+    }
+
+    #user_page #stats_content .canvas .bar_info_text_your{
+        display: inline-block;
+        margin-left: 70px;
+
+    }
+
+
+    #user_page #stats_content .canvas .bar_text{
+        font-weight: bold;
+    }

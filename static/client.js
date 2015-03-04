@@ -2,8 +2,6 @@
 var messages;
 var userInfo;
 
-
-
 var ws = new WebSocket("ws://127.0.0.1:5000/socket");
 
 ws.onopen = function () {
@@ -25,9 +23,13 @@ ws.onmessage = function (msg) {
         loggedInUsers = parseInt(document.getElementById('stats_logged').innerHTML)-1;
         document.getElementById('stats_logged').innerHTML=loggedInUsers;
     }else if(msgData.action=="newVisit" && msgData.token==sessionStorage.token){
-        console.log("CORRECT");
         visits = msgData.visits;
         document.getElementById('stats_visits').innerHTML=visits;
+        getStats();
+    }else if(msgData.action=="newPost" && msgData.token==sessionStorage.token){
+        posts = msgData.posts;
+        document.getElementById('stats_posts').innerHTML=posts;
+        getStats();
     }
 };
 
@@ -487,23 +489,3 @@ clickedNav = function(link){
     }
 
 }
-var getStats = function () {
-
-    var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST","../getStats" , true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xmlhttp.onreadystatechange = function () {
-            if(xmlhttp.readyState==4 && xmlhttp.status==200) {
-                var stats = JSON.parse(xmlhttp.responseText);
-                console.log(stats);
-
-                document.getElementById('stats_logged').innerHTML = stats.active;
-                document.getElementById('stats_visits').innerHTML = stats.visits;
-                document.getElementById('stats_posts').innerHTML = stats.posts;
-            }
-        };
-        xmlhttp.send("token="+sessionStorage.token);
-
-
-};

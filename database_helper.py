@@ -197,10 +197,28 @@ def addVisit(email):
     result = cursor.fetchone()[0]
     return result
 
-def getNumberOfPosts(token):
-    email = tokenToEmail(token)
+def getAverageVisits():
+    c = get_db()
+    cursor = c.cursor()
+    cursor.execute("SELECT AVG(number) FROM visitors")
+    return cursor.fetchone()[0]
+
+def getNumberOfPosts(email):
     c = get_db()
     cursor = c.cursor()
     cursor.execute("SELECT COUNT(*) FROM messages WHERE email=?", (email,))
     result = cursor.fetchone()[0]
     return result
+
+def getAverageNumberOfPosts():
+    c = get_db()
+    cursor = cursor2 = c.cursor()
+    cursor.execute("SELECT COUNT(*) FROM messages")
+    totalPosts = cursor.fetchone()[0]
+
+    cursor2.execute("SELECT COUNT(*) FROM members")
+    totalMembers = cursor2.fetchone()[0]
+
+    averagePosts = totalPosts/totalMembers
+    return averagePosts
+

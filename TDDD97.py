@@ -134,9 +134,7 @@ def get_user_data_by_email():
             return jsonify(success=False,
                            message="No such user.")
         else:
-            print "GET"
             numberOfVisits=database_helper.addVisit(email)
-            print numberOfVisits
             token = database_helper.emailToToken(email)
 
             data = json.dumps({'visits': numberOfVisits,
@@ -168,6 +166,17 @@ def post_message():
             message = request.form['message']
             response = database_helper.postmessage(email, message)
             if(response == "Success"):
+
+                numberOfPosts=database_helper.getNumberOfPosts(email)
+                token = database_helper.emailToToken(email)
+
+                data = json.dumps({'posts': numberOfPosts,
+                                'token':token,
+                                'action':"newPost"})
+
+                for ws in connectedWS:
+                    ws.send(data)
+
                 return jsonify(success=True, message="Message posted.")
             else:
                 return jsonify(success=False, message="Failed to post.")
@@ -215,14 +224,18 @@ def getStats():
     active = database_helper.getNumberOfLoggedInUsers()
 
     numberOfVisits = database_helper.getNumberOfVisits(token)
-
-    numberOfPosts = database_helper.getNumberOfPosts(token)
+    averageVisits = database_helper.getAverageVisits()
+    email = database_helper.tokenToEmail(token)
+    numberOfPosts = database_helper.getNumberOfPosts(email)
+    averagePosts = database_helper.getAverageNumberOfPosts()
 
 
     return jsonify(success=True,
                 active =active,
                 visits=numberOfVisits,
-                posts=numberOfPosts)
+                averageVisits=averageVisits,
+                posts=numberOfPosts,
+                averagePosts=averagePosts)
 
 
 @app.route('/socket')
