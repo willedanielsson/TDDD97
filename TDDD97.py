@@ -247,14 +247,13 @@ def socket():
             connectedWS.append(ws)
             while True:
                 message = ws.receive()
-                ws.send(ws)
-        return
+                ws.send(message)
+
     except Exception, e:
         connectedWS.remove(ws)
-
-
+    return
 
 if __name__ == '__main__':
+    app.debug = True
     http_server = WSGIServer(('', 5000), app, handler_class=WebSocketHandler)
     http_server.serve_forever()
-    app.run(debug=True)

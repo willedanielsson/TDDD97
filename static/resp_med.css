@@ -1,0 +1,8 @@
+
+@media (max-width: 1000px) and (min-width: 600px ) {
+
+    #user_page #navigation ul li{
+        width: inherit;
+    }
+
+}

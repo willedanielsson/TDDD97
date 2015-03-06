@@ -2,7 +2,7 @@
 var messages;
 var userInfo;
 
-var ws = new WebSocket("ws://127.0.0.1:5000/socket");
+var ws = new WebSocket("ws://localhost:5000/socket");
 
 ws.onopen = function () {
 
@@ -123,10 +123,11 @@ var login = function(){
             if(xmlhttp.readyState==4 && xmlhttp.status==200) {
 
                 var response = JSON.parse(xmlhttp.responseText);
-                console.log(response);
                 if(response.success==true) {
+                    console.log("response är "+response.data);
                     sessionStorage.token = response.data;
                     displayView();
+
                 }else{
                     document.getElementById('failed_login').innerHTML=response.message;
                 }
@@ -141,9 +142,10 @@ var login = function(){
     }
         xmlhttp.send("email="+email+"&password="+password);
 
-        location.reload();
 
-}
+
+
+};
 
 /*
 Function that sends the message to the database
@@ -446,7 +448,6 @@ Returns:
 displayView = function(){
     console.log(sessionStorage.token);
 	if(sessionStorage.token==undefined){
-        console.log("Går in");
 		document.getElementById('welcome_content').innerHTML = document.getElementById('welcome_view').innerHTML;
 	}else{
 		document.getElementById('welcome_content').innerHTML = document.getElementById('profile_view').innerHTML;
