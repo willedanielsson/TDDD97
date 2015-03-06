@@ -263,6 +263,7 @@ var getUserMessages = function(){
                     listItem.innerHTML = messages.data[i][0];
                     listItem.setAttribute("draggable", "true");
                     listItem.setAttribute("ondragstart", "drag(event)");
+                    listItem.setAttribute("id", i);
                     document.getElementById('post_list_list').appendChild(listItem);
                 }
 
@@ -414,6 +415,7 @@ var getFriendMessages = function(email){
                     for(var i=friendMessages.data.length-1; i>=0; i--){
                         var listItem = document.createElement("li");
                         listItem.innerHTML = friendMessages.data[i][0];
+                        listItem.setAttribute("id", "friend"+i);
                         document.getElementById('friend_post_list_list').appendChild(listItem);
                     }
                 }else{

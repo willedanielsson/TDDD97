@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://127.0.0.1:5000/" />
+<title>Selenium_PostFriend</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Selenium_PostFriend</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Browse</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=searched_friend</td>
+	<td>test@test.sea</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=find_user_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=friend_post_textarea</td>
+	<td>Hallå där</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#friend_post_content &gt; form.post_post &gt; #post_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#friend_post_content &gt; #button_div &gt; #reload_messages</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=friend2</td>
+	<td>Hallå där</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
