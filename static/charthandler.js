@@ -19,14 +19,14 @@ var getStats = function () {
                 document.getElementById('stats_visits').innerHTML = visits;
                 document.getElementById('stats_posts').innerHTML = posts;
 
-                document.getElementById('bar_average_visits_p').innerHTML=averageVisits;
-                document.getElementById('bar_visits_p').innerHTML=visits;
-
-                document.getElementById('bar_average_posts_p').innerHTML=averagePosts;
-                document.getElementById('bar_posts_p').innerHTML=posts;
 
                 var percentPost;
                 var percentVisits;
+
+                console.log("Redraws the canvas");
+                drawVisits(visits, averageVisits);
+                drawPosts(posts, averagePosts);
+                /*
                 if(averagePosts > posts){
                     document.getElementById('bar_average_posts').style.height="100px";
                     percentPost = Math.round((posts/averagePosts)*100);
@@ -43,11 +43,14 @@ var getStats = function () {
                     percentVisits = Math.round((visits/averageVisits)*100);
                     document.getElementById('bar_visits').style.height=percentVisits+"px";
 
+
+
                 }else{
                     document.getElementById('bar_visits').style.height="100px";
                     percentVisits = Math.round((averageVisits/visits)*100);
                     document.getElementById('bar_average_visits').style.height=percentVisits+"px";
                 }
+                */
             }
         };
         xmlhttp.send("token="+sessionStorage.token);
@@ -55,3 +58,47 @@ var getStats = function () {
 
 };
 
+google.load('visualization', '1.0', {'packages':['corechart']});
+google.setOnLoadCallback(drawChart);
+
+function drawChart(){
+
+}
+
+function drawVisits (your, average){
+    var data = new google.visualization.DataTable;
+    data.addColumn('string', 'Visitors');
+        data.addColumn('number', 'Visits');
+        data.addRows([
+          ['Your', your],
+          ['Average', average]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Number of visits',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('visit_chart_div'));
+        chart.draw(data, options);
+}
+
+function drawPosts (your, average){
+    var data = new google.visualization.DataTable;
+    data.addColumn('string', 'Posts');
+        data.addColumn('number', 'Posts');
+        data.addRows([
+          ['Your', your],
+          ['Average', average]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Number of posts',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('post_chart_div'));
+        chart.draw(data, options);
+}
